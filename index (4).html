@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ရွက်သစ်</title>
+  <!-- Font Awesome CDN -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(to right, #fffaf5, #fff0e6);
+      color: #3b2f2f;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: #8b4513;
+    }
+
+    select {
+      padding: 12px 16px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      margin: 0 auto 30px auto;
+      display: block;
+      max-width: 300px;
+      width: 100%;
+      background: #fff;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      padding: 0 10px;
+    }
+
+    .menu-item {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .menu-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-item i {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #d2691e;
+    }
+
+    .menu-item h3 {
+      font-size: 18px;
+      margin: 10px 0 6px;
+      color: #4a2e16;
+    }
+
+    .menu-item p {
+      font-size: 14px;
+      color: #888;
+    }
+
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 24px;
+      }
+
+      .menu-item {
+        padding: 15px;
+      }
+
+      .menu-item i {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>မီနူး</h1>
+
+  <select id="categorySelect">
+    <option value="all">အားလုံး</option>
+    <option value="foods">အစားအစာ</option>
+    <option value="drinks">အဖျော်ယမကာ</option>
+    <option value="desserts">မုန့်နဲ့ချိုချဉ်</option>
+  </select>
+
+  <div class="menu-grid" id="menuGrid"></div>
+
+  <script>
+    const menuItems = [
+      { name: "ကြက်သားကာရီ", category: "foods" },
+      { name: "ထမင်းကြော်", category: "foods" },
+      { name: "ခေါက်ဆွဲ", category: "foods" },
+      { name: "ကြံဖျော်ရည်", category: "drinks" },
+      { name: "လက်ဖက်ရည်", category: "drinks" },
+      { name: "အာလူးမုန့်", category: "desserts" },
+      { name: "အုန်းနို့ပူ", category: "drinks" },
+      { name: "သရက်သီးရည်", category: "drinks" },
+      { name: "ပဲမုန့်", category: "desserts" }
+    ];
+
+    const categoryIcons = {
+      foods: "fa-utensils",
+      drinks: "fa-mug-saucer",
+      desserts: "fa-ice-cream"
+    };
+
+    const menuGrid = document.getElementById("menuGrid");
+    const categorySelect = document.getElementById("categorySelect");
+
+    function displayMenuItems(filter) {
+      menuGrid.innerHTML = "";
+      const filteredItems = menuItems.filter(item => filter === "all" || item.category === filter);
+      filteredItems.forEach(item => {
+        const iconClass = categoryIcons[item.category] || "fa-circle";
+        const div = document.createElement("div");
+        div.className = "menu-item";
+        div.innerHTML = `
+          <i class="fas ${iconClass}"></i>
+          <h3>${item.name}</h3>
+          <p>${item.category}</p>`;
+        menuGrid.appendChild(div);
+      });
+    }
+
+    categorySelect.addEventListener("change", () => {
+      displayMenuItems(categorySelect.value);
+    });
+
+    displayMenuItems("all");
+  </script>
+
+</body>
+</html>
